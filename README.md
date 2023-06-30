@@ -14,12 +14,13 @@ To do this, we use the community detection method [GenLouvain for Matlab](https:
 - [Significance clustering](https://github.com/mapequation/multilevel-significance-clustering)
 - C++ compiler
 - Rust
-- Python
+- Python/Jupyter
 
 # How to use
 
 The idea for this paper is to detect scales for which the community solution landscape is robust.
-As community detection is often implemented using a stochastic search algorithm sensitive to starting conditions, one often performs multiple searches to find the best (highest quality) solution.
+As community detection is often implemented using a stochastic search algorithm sensitive to starting conditions, one often performs multiple searches to find the best (highest quality) solution. 
+The file for this is located in `matlab/main.m`.
 Then, one studies the obtained partitions similarity and quality.
 If all partitions are similar, the solution landscape is peaked.
 If partitions are dissimilar but the quality is similar, then the solution landscape is degenerate.

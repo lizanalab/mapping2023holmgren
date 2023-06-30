@@ -69,8 +69,29 @@ def load_partitions(chromosome, gamma, alpha=108, max_clusters=None):
     return partitions, n_clusters
 
 
+def partition_validation(filename, threshold=0.45, seed=123):
+    from collections import defaultdict
+    import os
+
+    name = os.path.splitext(os.path.basename(filename))[0]
+    out_name = f"./output/{name}.txt"
+    command = f"./partition-validation/partition-validation -s {seed} -t {threshold} {filename} {out_name}"
+    os.system(command)
+
+    clusters = defaultdict(list)
+
+    with open(out_name) as f:
+        next(f), next(f)
+        for line in f:
+            line = line.strip()
+            cluster, partition = map(int, line.split())
+            clusters[cluster - 1].append(partition - 1)
+
+    return dict(clusters)
+
+
 def run_significance_clustering(agg_file, result_file):
-    binary = "../significance-clustering/target/release/significance-clustering"
+    binary = "./significance-clustering/target/release/significance-clustering"
     cmd = f"{binary} {agg_file} {result_file}"
     os.system(cmd)
 
